@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>REPROCHAT | Consultá sobre la Ley 27.350 (REPROCANN)</title>
+  <meta name="description" content="Consultá sobre la normativa vigente: Ley 27.350 · Decreto 883/2020 · Res. 800/2021">
+
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://reprochat.redorigen.com.ar/">
+  <meta property="og:title" content="REPROCHAT | Consultá sobre la Ley 27.350 (REPROCANN)">
+  <meta property="og:description" content="Consultá sobre la normativa vigente: Ley 27.350 · Decreto 883/2020 · Res. 800/2021">
+  <meta property="og:image" content="https://reprochat.redorigen.com.ar/og-image.svg">
+  <meta property="og:image:type" content="image/svg+xml">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="es_AR">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://reprochat.redorigen.com.ar/">
+  <meta name="twitter:title" content="REPROCHAT | Consultá sobre la Ley 27.350 (REPROCANN)">
+  <meta name="twitter:description" content="Consultá sobre la normativa vigente: Ley 27.350 · Decreto 883/2020 · Res. 800/2021">
+  <meta name="twitter:image" content="https://reprochat.redorigen.com.ar/og-image.svg">
+
+  <link rel="icon" type="image/svg+xml" href="./fav-icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;600;700&family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./global.css">
+</head>
+<body data-state="welcome">
+  <div class="initial-loader" id="initial-loader" role="status" aria-live="polite" aria-label="Cargando REPROChat">
+    <img src="./fav-icon.svg" alt="" class="loader-icon" width="60" height="60">
+  </div>
+
+  <header>
+    <button type="button" class="header-brand" id="header-brand" aria-label="Ir al inicio">
+      <img src="./logo.svg" alt="RED.origen" class="brand-logo">
+      <span class="brand-divider" aria-hidden="true"></span>
+      <span class="brand-title">REPROChat</span>
+    </button>
+  </header>
+
+  <main id="chat-main">
+    <div class="chat-container" id="chat-container"></div>
+  </main>
+
+  <footer>
+    <div class="composer-wrapper">
+      <div class="welcome-hero" id="welcome-hero">
+        <p class="welcome-question">¿Qué deseas consultar sobre la normativa vigente?</p>
+        <div class="welcome-cards">
+          <button type="button" class="welcome-card" data-question="¿Cuántas plantas se permite cultivar?">
+            <span>¿Cuántas plantas se permite cultivar?</span>
+            <span class="welcome-card-arrow" aria-hidden="true">&#x2191;</span>
+          </button>
+          <button type="button" class="welcome-card" data-question="¿Cuántos goteros se puede transportar?">
+            <span>¿Cuántos goteros se puede transportar?</span>
+            <span class="welcome-card-arrow" aria-hidden="true">&#x2191;</span>
+          </button>
+        </div>
+      </div>
+      <form class="composer" id="chat-form">
+        <textarea id="question-input" placeholder="Pregunta sobre REPROCANN o la Ley 27.350..." aria-label="Mensaje" rows="1"></textarea>
+        <button type="submit" class="send-btn" id="send-btn" aria-label="Enviar">&#x2191;</button>
+      </form>
+    </div>
+    <p class="footer-subtitle">
+      RAG Normativo:
+      <a href="https://www.argentina.gob.ar/normativa/nacional/ley-27350-273801/texto" target="_blank" rel="noopener noreferrer" class="footer-link">
+        <span>Ley 27.350</span>
+        <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          <polyline points="15 3 21 3 21 9"></polyline>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+      </a>
+      ·
+      <a href="https://www.argentina.gob.ar/normativa/nacional/decreto-883-2020-344131/texto" target="_blank" rel="noopener noreferrer" class="footer-link">
+        <span>Decreto 883/2020</span>
+        <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          <polyline points="15 3 21 3 21 9"></polyline>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+      </a>
+      ·
+      <a href="https://www.argentina.gob.ar/normativa/nacional/resolucion-800-2021-347864/texto" target="_blank" rel="noopener noreferrer" class="footer-link">
+        <span>Res. 800/2021</span>
+        <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          <polyline points="15 3 21 3 21 9"></polyline>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+      </a>
+    </p>
+  </footer>
+
+  <script>
+    const ASK_ENDPOINT = 'https://4n9uyexb.function2.insforge.app/ask';
+    const NO_INFO_RESPONSE = 'no tengo esa informacion en mis documentos';
+    const chatContainer = document.getElementById('chat-container');
+    const chatMain = document.getElementById('chat-main');
+    const chatForm = document.getElementById('chat-form');
+    const questionInput = document.getElementById('question-input');
+    const sendBtn = document.getElementById('send-btn');
+    const headerBrand = document.getElementById('header-brand');
+    const initialLoader = document.getElementById('initial-loader');
+
+    let supportsDisplayTransition;
+    function canTransitionDisplay() {
+      if (supportsDisplayTransition !== undefined) return supportsDisplayTransition;
+      if (!window.CSS?.supports?.('transition-behavior', 'allow-discrete') || !document.body) {
+        return false;
+      }
+      const probe = document.createElement('div');
+      probe.style.cssText = 'transition: display 1s allow-discrete !important; display: block;';
+      document.body.appendChild(probe);
+      getComputedStyle(probe).display;
+      probe.style.display = 'none';
+      supportsDisplayTransition = getComputedStyle(probe).display === 'block';
+      probe.remove();
+      return supportsDisplayTransition;
+    }
+
+    async function dismissInitialLoader() {
+      if (!initialLoader) return;
+
+      const minDelay = new Promise((resolve) => setTimeout(resolve, 1500));
+      const fontsReady = document.fonts?.ready
+        ? Promise.race([
+            document.fonts.ready,
+            new Promise((resolve) => setTimeout(resolve, 1500)),
+          ])
+        : Promise.resolve();
+
+      await Promise.all([minDelay, fontsReady]);
+
+      if (canTransitionDisplay()) {
+        initialLoader.hidden = true;
+      } else {
+        initialLoader.setAttribute('data-closing', '');
+      }
+
+      const animations = initialLoader.getAnimations();
+      if (animations.length > 0) {
+        await Promise.race([
+          Promise.allSettled(animations.map((a) => a.finished)),
+          new Promise((resolve) => setTimeout(resolve, 1000)),
+        ]);
+      }
+
+      initialLoader.remove();
+    }
+
+    dismissInitialLoader();
+
+    headerBrand.addEventListener('click', () => {
+      document.body.dataset.state = 'welcome';
+      chatContainer.innerHTML = '';
+      questionInput.value = '';
+    });
+
+    function scrollToBottom() {
+      chatMain.scrollTop = chatMain.scrollHeight;
+    }
+
+    function isNoInfoResponse(text) {
+      if (typeof text !== 'string') return false;
+      const normalized = text
+        .trim()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[.!]+$/, '');
+      return normalized === NO_INFO_RESPONSE;
+    }
+
+    function createStatusIcon(type) {
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(svgNS, 'svg');
+      svg.setAttribute('class', 'status-icon');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('fill', 'none');
+      svg.setAttribute('stroke', 'currentColor');
+      svg.setAttribute('stroke-width', '2');
+      svg.setAttribute('stroke-linecap', 'round');
+      svg.setAttribute('stroke-linejoin', 'round');
+      svg.setAttribute('aria-hidden', 'true');
+
+      if (type === 'warning') {
+        const path = document.createElementNS(svgNS, 'path');
+        path.setAttribute('d', 'M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z');
+        svg.appendChild(path);
+      } else {
+        const circle = document.createElementNS(svgNS, 'circle');
+        circle.setAttribute('cx', '12');
+        circle.setAttribute('cy', '12');
+        circle.setAttribute('r', '10');
+        svg.appendChild(circle);
+      }
+
+      const line1 = document.createElementNS(svgNS, 'line');
+      line1.setAttribute('x1', '12');
+      line1.setAttribute('y1', type === 'warning' ? '9' : '8');
+      line1.setAttribute('x2', '12');
+      line1.setAttribute('y2', type === 'warning' ? '13' : '12');
+      svg.appendChild(line1);
+
+      const line2 = document.createElementNS(svgNS, 'line');
+      line2.setAttribute('x1', '12');
+      line2.setAttribute('y1', type === 'warning' ? '17' : '16');
+      line2.setAttribute('x2', '12.01');
+      line2.setAttribute('y2', type === 'warning' ? '17' : '16');
+      svg.appendChild(line2);
+
+      return svg;
+    }
+
+    function createChevronIcon() {
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(svgNS, 'svg');
+      svg.setAttribute('class', 'accordion-chevron');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('fill', 'none');
+      svg.setAttribute('stroke', 'currentColor');
+      svg.setAttribute('stroke-width', '2');
+      svg.setAttribute('stroke-linecap', 'round');
+      svg.setAttribute('stroke-linejoin', 'round');
+      svg.setAttribute('aria-hidden', 'true');
+
+      const polyline = document.createElementNS(svgNS, 'polyline');
+      polyline.setAttribute('points', '6 9 12 15 18 9');
+      svg.appendChild(polyline);
+      return svg;
+    }
+
+    function appendMessage(role, text, sources = [], options = {}) {
+      const { variant = 'default', onRetry = null } = options;
+      const msgDiv = document.createElement('div');
+      msgDiv.className = `message ${role}`;
+      if (variant !== 'default') {
+        msgDiv.classList.add(`is-${variant}`);
+      }
+
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+
+      if (variant === 'warning' || variant === 'error') {
+        bubble.setAttribute('role', variant === 'error' ? 'alert' : 'status');
+        bubble.appendChild(createStatusIcon(variant));
+
+        const body = document.createElement('div');
+        body.className = 'status-body';
+
+        const textSpan = document.createElement('span');
+        textSpan.textContent = text;
+        body.appendChild(textSpan);
+
+        if (variant === 'error' && typeof onRetry === 'function') {
+          const retryBtn = document.createElement('button');
+          retryBtn.type = 'button';
+          retryBtn.className = 'retry-btn';
+          retryBtn.textContent = 'Reintentar';
+          retryBtn.addEventListener('click', () => {
+            msgDiv.remove();
+            onRetry();
+          });
+          body.appendChild(retryBtn);
+        }
+
+        bubble.appendChild(body);
+      } else {
+        bubble.textContent = text;
+      }
+
+      msgDiv.appendChild(bubble);
+
+      if (role === 'assistant' && variant !== 'warning' && Array.isArray(sources) && sources.length > 0) {
+        const details = document.createElement('details');
+        details.className = 'sources-details';
+
+        const summary = document.createElement('summary');
+        const summaryLabel = document.createElement('span');
+        summaryLabel.textContent = `Ver ${sources.length} fragmentos consultados (fuentes y score)`;
+        summary.appendChild(summaryLabel);
+        summary.appendChild(createChevronIcon());
+        details.appendChild(summary);
+
+        const list = document.createElement('div');
+        list.className = 'sources-list';
+
+        sources.forEach((src) => {
+          const item = document.createElement('div');
+          item.className = 'source-item';
+
+          const header = document.createElement('div');
+          header.className = 'source-header';
+
+          const title = document.createElement('span');
+          title.textContent = src.source || 'Documento';
+
+          const score = document.createElement('span');
+          score.className = 'source-score';
+          const numericScore = typeof src.score === 'number' ? src.score.toFixed(4) : 'N/A';
+          score.textContent = `Score: ${numericScore}`;
+
+          header.appendChild(title);
+          header.appendChild(score);
+
+          const excerpt = document.createElement('div');
+          excerpt.className = 'source-excerpt';
+          excerpt.textContent = src.content || '';
+
+          item.appendChild(header);
+          item.appendChild(excerpt);
+          list.appendChild(item);
+        });
+
+        details.appendChild(list);
+        msgDiv.appendChild(details);
+      }
+
+      chatContainer.appendChild(msgDiv);
+      scrollToBottom();
+      return { msgDiv, bubble };
+    }
+
+    async function handleSendQuestion(question, { isRetry = false } = {}) {
+      const trimmed = question.trim();
+      if (!trimmed) return;
+
+      if (document.body.dataset.state === 'welcome') {
+        document.body.dataset.state = 'chat';
+      }
+
+      questionInput.value = '';
+      questionInput.disabled = true;
+      sendBtn.disabled = true;
+
+      if (!isRetry) {
+        appendMessage('user', trimmed);
+      }
+
+      const loadingMsg = appendMessage('assistant', 'Consultando documentos normativos...', [], {
+        variant: 'loading',
+      });
+
+      const retryCurrentQuestion = () => handleSendQuestion(trimmed, { isRetry: true });
+
+      try {
+        const response = await fetch(ASK_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question: trimmed }),
+        });
+
+        const data = await response.json();
+        loadingMsg.msgDiv.remove();
+
+        if (!response.ok || data.error) {
+          appendMessage(
+            'assistant',
+            `Error al consultar el backend: ${data.error || response.statusText}`,
+            [],
+            { variant: 'error', onRetry: retryCurrentQuestion }
+          );
+        } else if (isNoInfoResponse(data.answer)) {
+          appendMessage(
+            'assistant',
+            'No tengo esa información en mis documentos. La consulta no figura en el corpus normativo cargado (Ley 27.350, Decreto 883/2020 y Res. 800/2021). Prueba con otra consulta.',
+            [],
+            { variant: 'warning' }
+          );
+        } else {
+          appendMessage('assistant', data.answer, data.sources || []);
+        }
+      } catch (err) {
+        loadingMsg.msgDiv.remove();
+        appendMessage(
+          'assistant',
+          `Error de conexión: ${err.message || err}`,
+          [],
+          { variant: 'error', onRetry: retryCurrentQuestion }
+        );
+      } finally {
+        questionInput.disabled = false;
+        sendBtn.disabled = false;
+        questionInput.focus();
+      }
+    }
+
+    chatForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      handleSendQuestion(questionInput.value);
+    });
+
+    questionInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleSendQuestion(questionInput.value);
+      }
+    });
+
+    document.querySelectorAll('.welcome-card').forEach((card) => {
+      card.addEventListener('click', () => {
+        const question = card.getAttribute('data-question') || card.textContent;
+        handleSendQuestion(question);
+      });
+    });
+  </script>
+</body>
+</html>
