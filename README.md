@@ -4,7 +4,7 @@ Asistente conversacional basado en **RAG (Retrieval-Augmented Generation)** para
 
 - **Ley 27.350** (Uso Medicinal de la Planta de Cannabis y sus derivados)
 - **Decreto Reglamentario 883/2020**
-- **Resolución 800/2021** (Programa REPROCANN)
+- **Resolución 800/2021** (Programa REPROCANN) y sus modificatorias (**Resolución 766/2023**, **Resolución 3132/2024** y **Resolución 1780/2025**)
 
 ---
 
