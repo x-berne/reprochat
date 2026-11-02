@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
   <meta name="color-scheme" content="light dark">
   <script>
     try {
@@ -34,7 +34,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@200;300;400;500;600;700&family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./global.css">
+  <link rel="stylesheet" href="./global.css?v=7">
 </head>
 <body data-state="welcome">
   <div class="initial-loader" id="initial-loader" role="status" aria-live="polite" aria-label="Cargando REPROChat">
@@ -76,6 +76,11 @@
 
   <footer>
     <div class="composer-wrapper">
+      <button type="button" class="scroll-bottom-btn" id="scroll-bottom-btn" aria-label="Desplazarse al último mensaje" hidden>
+        <svg class="scroll-bottom-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
       <div class="welcome-hero" id="welcome-hero">
         <p class="welcome-question">¿Qué deseas consultar sobre la normativa vigente?</p>
       </div>
@@ -99,6 +104,10 @@
       <span>Basado en normativa vigente de la Ley 27.350 -</span>
       <button type="button" class="footer-sources-btn" id="sources-trigger" popovertarget="sources-popover">
         Ver fuentes
+      </button>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <button type="button" class="footer-sources-btn" id="about-trigger">
+        ¿Qué es REPROChat?
       </button>
     </p>
     <div id="sources-popover" popover="auto" class="sources-popover">
@@ -143,6 +152,46 @@
         </svg>
       </a>
     </div>
+
+    <dialog id="about-dialog" class="about-dialog" aria-labelledby="about-title">
+      <div class="about-dialog-card" id="about-dialog-card">
+        <button type="button" class="about-close-btn" id="about-close" aria-label="Cerrar modal">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+        <div class="about-visual">
+          <img src="./iso-edit.png" alt="Composición sobre el isologo de REPROChat" class="about-image">
+        </div>
+        <div class="about-content">
+          <h1 id="about-title" class="about-title">¿QUÉ ES REPROCHAT?</h1>
+          <div class="about-body">
+            <p>
+              Es un asistente conversacional diseñado para facilitar la consulta y comprensión del marco normativo sobre cannabis medicinal en Argentina y del programa REPROCANN.
+            </p>
+            <p>
+              Funciona mediante arquitectura <strong>RAG</strong> (<em>Retrieval-Augmented Generation</em> o Generación Aumentada por Recuperación): ante cada consulta, localiza y recupera los fragmentos pertinentes directamente desde los documentos oficiales vigentes almacenados en su base de datos para elaborar respuestas fundamentadas y sin inventar información.
+            </p>
+            <p>
+              Está basado en la <strong>Ley 27.350</strong>, el <strong>Decreto 883/2020</strong> y sus resoluciones complementarias vigentes (Res. 800/2021, Res. 766/2023 y Res. 1780/2025).
+            </p>
+            <p class="about-disclaimer">
+              <strong>Aviso legal:</strong> Este análisis no tiene validez legal ni reemplaza el asesoramiento profesional, y no debe ser utilizado como fuente oficial.
+            </p>
+          </div>
+          <div class="about-footer">
+            <a href="https://www.instagram.com/cooperativa.origen/" target="_blank" rel="noopener noreferrer" class="about-cta">
+              <span>Contacto</span>
+              <svg class="about-cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </dialog>
   </footer>
 
   <script type="module">
@@ -178,6 +227,35 @@
         }
       });
     }
+
+    const aboutTrigger = document.getElementById('about-trigger');
+    const aboutDialog = document.getElementById('about-dialog');
+    const aboutDialogCard = document.getElementById('about-dialog-card');
+    const aboutClose = document.getElementById('about-close');
+
+    if (aboutTrigger && aboutDialog && aboutClose) {
+      aboutTrigger.addEventListener('click', () => {
+        aboutDialog.showModal();
+      });
+
+      aboutClose.addEventListener('click', () => {
+        aboutDialog.close();
+      });
+
+      aboutDialog.addEventListener('click', (e) => {
+        if (!aboutDialogCard) return;
+        const rect = aboutDialogCard.getBoundingClientRect();
+        const isInDialog = (
+          rect.top <= e.clientY &&
+          e.clientY <= rect.top + rect.height &&
+          rect.left <= e.clientX &&
+          e.clientX <= rect.left + rect.width
+        );
+        if (!isInDialog) {
+          aboutDialog.close();
+        }
+      });
+    }
     const ASK_ENDPOINT = 'https://4n9uyexb.function2.insforge.app/ask';
     const NO_INFO_RESPONSE = 'no tengo esa informacion en mis documentos';
     const chatContainer = document.getElementById('chat-container');
@@ -186,6 +264,7 @@
     const questionInput = document.getElementById('question-input');
     const sendBtn = document.getElementById('send-btn');
     const headerBrand = document.getElementById('header-brand');
+    const scrollBottomBtn = document.getElementById('scroll-bottom-btn');
     const initialLoader = document.getElementById('initial-loader');
     const colorSchemeMeta = document.querySelector('meta[name="color-scheme"]');
     const themeToggle = document.getElementById('theme-toggle');
@@ -271,6 +350,7 @@
       }
 
       initialLoader.remove();
+      document.body.dataset.loaded = 'true';
     }
 
     dismissInitialLoader();
@@ -279,12 +359,65 @@
       document.body.dataset.state = 'welcome';
       chatContainer.innerHTML = '';
       questionInput.value = '';
+      updateScrollButton();
       questionInput.focus();
     });
 
-    function scrollToBottom() {
-      chatMain.scrollTop = chatMain.scrollHeight;
+    const SCROLL_THRESHOLD = 100;
+
+    function isScrolledUp() {
+      const remainingScroll = chatMain.scrollHeight - chatMain.scrollTop - chatMain.clientHeight;
+      return remainingScroll > SCROLL_THRESHOLD;
     }
+
+    function updateScrollButton() {
+      if (!scrollBottomBtn) return;
+      if (document.body.dataset.state !== 'chat') {
+        scrollBottomBtn.classList.remove('is-visible');
+        scrollBottomBtn.hidden = true;
+        return;
+      }
+
+      if (isScrolledUp()) {
+        scrollBottomBtn.hidden = false;
+        requestAnimationFrame(() => {
+          scrollBottomBtn.classList.add('is-visible');
+        });
+      } else {
+        scrollBottomBtn.classList.remove('is-visible');
+      }
+    }
+
+    function scrollToBottom({ force = true, smooth = false } = {}) {
+      if (!force && isScrolledUp()) {
+        updateScrollButton();
+        return;
+      }
+      if (smooth) {
+        chatMain.scrollTo({ top: chatMain.scrollHeight, behavior: 'smooth' });
+      } else {
+        chatMain.scrollTop = chatMain.scrollHeight;
+      }
+      updateScrollButton();
+    }
+
+    if (scrollBottomBtn) {
+      scrollBottomBtn.addEventListener('transitionend', () => {
+        if (!scrollBottomBtn.classList.contains('is-visible')) {
+          scrollBottomBtn.hidden = true;
+        }
+      });
+
+      scrollBottomBtn.addEventListener('click', () => {
+        chatMain.scrollTo({
+          top: chatMain.scrollHeight,
+          behavior: 'smooth',
+        });
+        questionInput.focus();
+      });
+    }
+
+    chatMain.addEventListener('scroll', updateScrollButton, { passive: true });
 
     function isNoInfoResponse(text) {
       if (typeof text !== 'string') return false;
@@ -438,6 +571,16 @@
       flushList();
     }
 
+    function createDotSpinner() {
+      const spinner = document.createElement('span');
+      spinner.className = 'dot-spinner';
+      spinner.setAttribute('aria-hidden', 'true');
+      for (let i = 0; i < 9; i++) {
+        spinner.appendChild(document.createElement('span'));
+      }
+      return spinner;
+    }
+
     function appendMessage(role, text, options = {}) {
       const { variant = 'default', onRetry = null } = options;
       const msgDiv = document.createElement('div');
@@ -473,6 +616,15 @@
         }
 
         bubble.appendChild(body);
+      } else if (variant === 'loading') {
+        bubble.setAttribute('role', 'status');
+        bubble.setAttribute('aria-live', 'polite');
+        bubble.appendChild(createDotSpinner());
+
+        const textSpan = document.createElement('span');
+        textSpan.className = 'loading-text';
+        textSpan.textContent = text;
+        bubble.appendChild(textSpan);
       } else if (role === 'assistant' && variant === 'default') {
         renderFormattedText(bubble, text);
       } else {
@@ -482,7 +634,7 @@
       msgDiv.appendChild(bubble);
 
       chatContainer.appendChild(msgDiv);
-      scrollToBottom();
+      scrollToBottom({ force: role === 'user' });
       return { msgDiv, bubble };
     }
 
