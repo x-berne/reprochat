@@ -1222,9 +1222,7 @@
   @media (prefers-reduced-motion: reduce) {
     .welcome-card,
     .welcome-cards-subtitle {
-      animation: none !important;
-      opacity: 1 !important;
-      transform: none !important;
+      animation-duration: 0.25s;
     }
   }
 
